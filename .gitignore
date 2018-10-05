@@ -1,6 +1,7 @@
 .cproject
 .deps/
 .libs/
+build/
 .project
 .version
 Makefile
