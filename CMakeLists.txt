@@ -14,7 +14,6 @@ find_package(LibUSB)
 add_definitions(-DHAVE_CONFIG_H)
 
 set(perseus_SOURCES
-    fifo.c
     fpga_data.c
     perseuserr.c
     perseusfx2.c
@@ -24,9 +23,7 @@ set(perseus_SOURCES
 
 set(perseus_HEADERS
     config.h
-    fifo.h
     fpga_data.h
-    perseuserr.h
     perseusfx2.h
     perseus-in.h
     perseus-sdr.h
@@ -35,7 +32,7 @@ set(perseus_HEADERS
 include_directories(
     .
     ${CMAKE_CURRENT_BINARY_DIR}
-    ${LIBUSB_INCLUDE_DIR}    
+    ${LIBUSB_INCLUDE_DIR}
     ${LIBPERSEUSSRC}
 )
 
@@ -43,10 +40,10 @@ add_custom_command(OUTPUT config.h
 				   COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/bootstrap.sh;COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/configure
 				   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/)
 
-add_custom_command(OUTPUT fpga_data.c 
-                   COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/generate_fpga_code.sh ./ > ${CMAKE_CURRENT_BINARY_DIR}/fpga_data.c 
+add_custom_command(OUTPUT fpga_data.c
+                   COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/generate_fpga_code.sh ./ > ${CMAKE_CURRENT_BINARY_DIR}/fpga_data.c
                    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/)
-                     
+
 add_library(perseus-sdr SHARED
     ${perseus_SOURCES}
 )
@@ -58,5 +55,5 @@ target_link_libraries(perseus-sdr
     ${LIBUSB_LIBRARIES}
 )
 
-install(FILES perseuserr.h  perseusfx2.h  perseus-in.h  perseus-sdr.h DESTINATION include)
+install(FILES perseusfx2.h  perseus-in.h  perseus-sdr.h DESTINATION include)
 install(TARGETS perseus-sdr DESTINATION ${LIB_INSTALL_DIR})
