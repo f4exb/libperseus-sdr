@@ -37,7 +37,7 @@
 #endif
 
 #include "perseus-sdr.h"
-#include "perseuserr.h"
+#include "perseus-in.h"
 #include "fpga_data.h"
 
 #define PERSEUS_MAX_DESCR	8
@@ -986,6 +986,21 @@ int perseus_set_attenuator_n (perseus_descr *descr, int nlo)
             return errornone(0);
         }
     }
+}
+
+int		perseus_is_preserie(perseus_descr *descr, int *flag)
+{
+	if (descr==NULL)
+		return errorset(PERSEUS_NULLDESCR, "null descriptor");
+
+	if (descr->handle==NULL) 
+		return errorset(PERSEUS_DEVNOTOPEN, "device not open");
+		
+	if (flag) *flag = descr->is_preserie;
+	if (descr->is_preserie)
+		return errorset(PERSEUS_SNNOTAVAILABLE, "preserie unit");
+	else
+		return errornone(0);
 }
 
 
