@@ -34,7 +34,7 @@
 #include "perseusfx2.h"
 #include "perseus-sdr.h"
 
-#include <libusb-1.0/libusb.h>
+#include <libusb.h>
 #include <time.h>
 
 typedef struct perseus_input_queue_ds *perseus_input_queue_ptr;

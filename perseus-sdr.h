@@ -32,7 +32,7 @@
 #if !defined(_WIN32)
 #include <pthread.h>
 #endif
-#include <libusb-1.0/libusb.h>
+#include <libusb.h>
 #include <time.h>
 
 /** @file */
