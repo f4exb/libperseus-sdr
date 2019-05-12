@@ -1,26 +1,26 @@
 // ------------------------------------------------------------------------------
 // Define the Perseus SDR Library interface
-// 
-// Copyright (c) 2010 Nicolangelo Palermo / IV3NWV 
+//
+// Copyright (c) 2010 Nicolangelo Palermo / IV3NWV
 // This file is part of the Perseus SDR Library
 //
-// The Perseus SDR Library is free software; you can redistribute 
-// it and/or modify it under the terms of the GNU Lesser General Public 
-// License as published by the Free Software Foundation; either version 
+// The Perseus SDR Library is free software; you can redistribute
+// it and/or modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either version
 // 2.1 of the License, or (at your option) any later version.
 
 // The Perseus SDR Library is distributed in the hope that it will
-// be useful, but WITHOUT ANY WARRANTY; without even the implied warranty 
-// of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+// be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+// of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 // See the GNU Lesser General Public License for more details.
 
 // You should have received a copy of the GNU Lesser General Public
-// License along with the Perseus SDR Library; 
+// License along with the Perseus SDR Library;
 // if not, see <http://www.gnu.org/licenses/>.
 
 // Creation date:	10 Jan 2010
 // Version:			0.1
-// Author: 			Nicolangelo Palermo / IV3NWV 
+// Author: 			Nicolangelo Palermo / IV3NWV
 //                  (nicopal at microtelecom dot it)
 // ------------------------------------------------------------------------------
 
@@ -32,7 +32,7 @@
 #if !defined(_WIN32)
 #include <pthread.h>
 #endif
-#include <libusb-1.0/libusb.h>
+#include <libusb.h>
 #include <time.h>
 
 /** @file */
@@ -75,9 +75,9 @@ typedef struct __attribute__((__packed__)) {
 eeprom_prodid;
 
 /*!
- * 
+ *
  */
- 
+
 typedef int (*perseus_input_callback)(void *buf, int buf_size, void *extra);
 
 struct perseus_descr_ds;
@@ -115,9 +115,9 @@ int		perseus_exit(void);
 /*!
  * Open the selected device
  * and return a descriptor to be used in all subsequent calls
- * The pointer returned points to a library data structure and has to 
+ * The pointer returned points to a library data structure and has to
  * be considered as a pointer to an opaque type
- * 
+ *
  * \param nDev ordinal of device to be opened
  * \return pointer to a device descriptor, NULL if no device is found
  */
@@ -128,7 +128,7 @@ perseus_descr *perseus_open(int nDev);
  *
  * \param descr pointer to descriptor
  * \return 0 if successfull
- * \return < 0 in case of error 
+ * \return < 0 in case of error
  */
 int 	perseus_close(perseus_descr *descr);
 
@@ -136,7 +136,7 @@ int 	perseus_close(perseus_descr *descr);
  * Load the FPGA bitstream into the hardware
  *
  * This function has to be called mandatorily after the perseus_open
- * 
+ *
  * \param descr pointer to descriptor
  * \param fname bitstream file name, used only for test, set to NULL
  * \return 0 if successfull
@@ -244,7 +244,7 @@ int		perseus_set_ddc_center_freq(perseus_descr *descr, double center_freq_hz, in
  * \return 0 if successfull
  * \return < 0 in case of error
  */
-int		perseus_start_async_input(perseus_descr *descr, uint32_t buffersize, 
+int		perseus_start_async_input(perseus_descr *descr, uint32_t buffersize,
 								perseus_input_callback callback, void *cb_extra);
 
 /*!
@@ -279,11 +279,11 @@ int		perseus_set_sampling_rate_n(perseus_descr *descr, unsigned int sample_rate_
 /*!
  * Get available sampling rate as vector of values
  *
- * that list is automagically determined during 
+ * that list is automagically determined during
  * the build process from the FPGA images available in the build directory.
- * All the images provided (ten at the moment) are embedded into the shared 
+ * All the images provided (ten at the moment) are embedded into the shared
  * library, so the .so is the only file needed at runtime.
- * 
+ *
  * \param descr pointer to descriptor
  * \param buf pointer to an integer array, to be allocated in client
  *        data segment
