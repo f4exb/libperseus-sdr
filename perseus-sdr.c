@@ -124,7 +124,11 @@ int	perseus_init(void)
 	}
 
 	libusb_init(&g_libusb_context);
+#if LIBUSB_API_VERSION >= 0x01000106
+	libusb_set_option(g_libusb_context, LIBUSB_OPTION_LOG_LEVEL, 3);
+#else
 	libusb_set_debug(g_libusb_context, 3 /* LIBUSB_LOG_LEVEL_INFO*/ );
+#endif
 
 	// find all perseus devices
 	num_devs = libusb_get_device_list(g_libusb_context, &list);
@@ -993,9 +997,9 @@ int		perseus_is_preserie(perseus_descr *descr, int *flag)
 	if (descr==NULL)
 		return errorset(PERSEUS_NULLDESCR, "null descriptor");
 
-	if (descr->handle==NULL) 
+	if (descr->handle==NULL)
 		return errorset(PERSEUS_DEVNOTOPEN, "device not open");
-		
+
 	if (flag) *flag = descr->is_preserie;
 	if (descr->is_preserie)
 		return errorset(PERSEUS_SNNOTAVAILABLE, "preserie unit");
